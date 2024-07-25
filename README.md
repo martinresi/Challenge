@@ -24,50 +24,127 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Challenge nest js
 
-## Installation
 
-```bash
-$ npm install
-```
+
+## Project installation
+
+
+git clone https://github.com/martinresi/Challenge.git
+
+cd challenge
+
+npm install
+
 
 ## Running the app
+npm run start
 
-```bash
-# development
-$ npm run start
+## Web
 
-# watch mode
-$ npm run start:dev
+url : http://localhost:3000/
 
-# production mode
-$ npm run start:prod
+## Configuracion de la DB
+### Crear DB
+### Conexion a Base de datos
+En el archivo app.module.ts indicar credenciales de conexion:
+```typescript
+    type: 'mysql',
+    host: 'servidor',
+    port: puerto,
+    username: 'usuario',
+    password: 'contraseña',
+    database: 'nombre de la base de datos',
 ```
 
-## Test
+### Endpoints API
+#### Characters
+```
+GET http://localhost:3000/characters
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+RESPONSE:
+[
+    {
+        "id": 1,
+        "name": "Luke Skywalker",
+        "mass": 77,
+        "eyeColor": "blue",
+        "birthYear": 1998
+    }
+]
 ```
 
-## Support
+```
+GET http://localhost:3000/characters/{id}
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+(200) RESPONSE:
+{
+    "id": 1,
+    "name": "Luke Skywalker",
+    "height": 172,
+    "mass": 77,
+    "hairColor": "blond",
+    "skinColor": "fair",
+    "eyeColor": "blue",
+    "birthYear": 1998
+}
 
-## Stay in touch
+(404) RESPONSE:
+{
+    "statusCode": 404,
+    "message": "Character not found"
+}
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```
+POST http://localhost:3000/characters
+BODY:
+{
+    "id": 2,
+    "name": "Luke Skywalker",
+    "height": 172,
+    "mass": 70,
+    "hairColor": "blond",
+    "skinColor": "fair",
+    "eyeColor": "blue",
+    "birthYear": 1998
+}
 
-## License
+(201) RESPONSE:
+{
+    "id": 2,
+    "name": "Luke Skywalker",
+    "height": 172,
+    "mass": 70,
+    "hairColor": "blond",
+    "skinColor": "fair",
+    "eyeColor": "blue",
+    "birthYear": 1998
+}
 
-Nest is [MIT licensed](LICENSE).
+(4OO) BAD REQUEST:
+{
+    "message": [
+        "height must be a number conforming to the specified constraints",
+        "height should not be empty"
+    ],
+    "error": "Bad Request",
+    "statusCode": 400
+}
+```
+
+```
+DELETE http://localhost:3000/characters/{id}
+
+(200) RESPONSE:
+{
+    "message": "Character eliminado"
+}
+
+(404) NOT FOUND:
+{
+    "statusCode": 400,
+    "message": "Character not found"
+}
+```
