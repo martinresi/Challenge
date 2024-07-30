@@ -1,43 +1,49 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Character } from './character.entity';
-import { Repository } from 'typeorm';
-import { CreateCharacterDto } from './create-character.dto';
+import { HttpCode, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Character, CharacterDocument } from './character.schema';
+import { Schema as MongooseSchema } from 'mongoose';
 
 @Injectable()
 export class CharacterService {
   constructor(
-    @InjectRepository(Character)
-    private characterRepository: Repository<Character>,
-  ) {}
-  // Metodo para obtener todos los caracteres de la DB
-  getAllCharacters() {
-    return this.characterRepository.find({
-      select: ['id', 'name', 'mass', 'birthYear', 'eyeColor'],
-    });
+    @InjectModel(Character.name)
+    private characterModel: Model<CharacterDocument>,
+  ) { }
+
+  async index() {
+    return await this.characterModel.find({}, 'name height mass birthYear eyeColor').exec();
   }
 
-  // Metodo para obtener caracter de la DB segun ID
-  async getById(id) {
-    const character = await this.characterRepository.findOneBy({ id });
-    if (!character)
-      throw new HttpException('Character not found', HttpStatus.NOT_FOUND);
-    return character;
-  }
-
-  // Metodo para crear caracter y guardar en DB
-  createCharacter(createCharacterDto: CreateCharacterDto) {
-    const newCharacter = this.characterRepository.create(createCharacterDto);
-    return this.characterRepository.save(newCharacter);
-  }
-
-  // Metodo para eliminar caracter segun ID
-  async remove(id: number): Promise<any> {
-    const character = await this.characterRepository.findOneBy({ id });
-    if (!character) {
-      throw new HttpException('Character not found', HttpStatus.BAD_REQUEST);
+  async indexById(id: string) {
+    let char = null;
+    try {
+      char = await this.characterModel.find({ _id: id }).exec();
+    } catch (error) {
+      throw new HttpException("Bad request", HttpStatus.BAD_REQUEST);
     }
-    await this.characterRepository.delete(id);
-    return { message: 'Character eliminado' };
+
+    if (char.length === 0) throw new HttpException("Character not found", HttpStatus.NOT_FOUND);
+    return char;
+  }
+
+  async create(character: Character): Promise<Character> {
+    const createdCharacter = new this.characterModel(character);
+    return createdCharacter.save();
+  }
+
+  async remove(id: any): Promise<any> {
+    let _delete = null;
+    try {
+      _delete = await this.characterModel.deleteOne({ _id: id }).exec();
+
+    } catch (error) {
+      throw new HttpException("Bad request", HttpStatus.BAD_REQUEST);
+    }
+
+    if (_delete.deletedCount < 1) throw new HttpException("Character not found", HttpStatus.NOT_FOUND);
+    return {
+      "message": "Character eliminado"
+    }
   }
 }
