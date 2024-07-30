@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"id\": 1,\r\n\"name\": \"Luke Skywalker\",\r\n\"height\": 172,\r\n\"mass\": 77,\r\n\"hairColor\": \"blond\",\r\n\"skinColor\": \"fair\",\r\n\"eyeColor\": \"brown\",\r\n\"birthYear\": 2003\r\n}",
+					"raw": "{\r\n\"id\":1,\r\n\"name\": \"lucas\",\r\n\"height\": 180,\r\n\"mass\": 70,\r\n\"hairColor\": \"colorado\",\r\n\"skinColor\": \"...\",\r\n\"eyeColor\": \".....\",\r\n\"birthYear\": 2003\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -40,7 +40,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"id\": 2,\r\n\"name\": \"Luke Skywalker\",\r\n\"mass\": 70,\r\n\"hairColor\": \"blond\",\r\n\"skinColor\": \"fair\",\r\n\"eyeColor\": \"blue\",\r\n\"birthYear\": 1998\r\n}",
+					"raw": "{\r\n\"name\": \"Luke Skywalker\",\r\n\"mass\": 70,\r\n\"hairColor\": \"blond\",\r\n\"skinColor\": \"fair\",\r\n\"eyeColor\": \"blue\",\r\n\"birthYear\": 1998\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -97,14 +97,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/characters/1",
+					"raw": "localhost:3000/characters/66a96962494dc670c0afc7f8",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"characters",
-						"1"
+						"66a96962494dc670c0afc7f8"
 					]
 				}
 			},
@@ -116,14 +116,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/characters/2",
+					"raw": "localhost:3000/characters/6",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"characters",
-						"2"
+						"6"
 					]
 				}
 			},
