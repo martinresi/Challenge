@@ -38,8 +38,9 @@ cd challenge
 npm install
 
 
-## Running the app
-npm run start
+## Running the app docker
+docker-compose -f docker-compose.yml up -d --build
+
 
 ## Web
 
@@ -48,14 +49,9 @@ url : http://localhost:3000/
 ## Configuracion de la DB
 ### Crear DB
 ### Conexion a Base de datos
-En el archivo app.module.ts indicar credenciales de conexion:
+En el archivo .env indicar credenciales de conexion:
 ```typescript
-    type: 'mysql',
-    host: 'servidor',
-    port: puerto,
-    username: 'usuario',
-    password: 'contraseña',
-    database: 'nombre de la base de datos',
+    DATABASE_URI = "mongodb://host.docker.internal:[puerto]/[schema]"
 ```
 
 ### Endpoints API
@@ -67,6 +63,7 @@ RESPONSE:
 [
     {
         "id": 1,
+        "height": 172,
         "name": "Luke Skywalker",
         "mass": 77,
         "eyeColor": "blue",
@@ -80,7 +77,7 @@ GET http://localhost:3000/characters/{id}
 
 (200) RESPONSE:
 {
-    "id": 1,
+    "id": id,
     "name": "Luke Skywalker",
     "height": 172,
     "mass": 77,
@@ -113,7 +110,7 @@ BODY:
 
 (201) RESPONSE:
 {
-    "id": 2,
+    "id": id,
     "name": "Luke Skywalker",
     "height": 172,
     "mass": 70,

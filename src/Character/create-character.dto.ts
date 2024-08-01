@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+//import { Schema } from 'mongoose';
 
 // Definicion DTO para entidad Character
 export class CreateCharacterDto {

@@ -1,12 +1,16 @@
 import { Module } from '@nestjs/common';
 import { CharacterController } from './character.controller';
 import { CharacterService } from './character.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Character } from './character.entity';
-import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Character, CharactersSchema } from './character.schema';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Character]), ConfigModule],
+  //imports: [TypeOrmModule.forFeature([Character]), ConfigModule],
+  imports: [
+    MongooseModule.forFeature([
+      { name: Character.name, schema: CharactersSchema },
+    ]),
+  ],
   controllers: [CharacterController],
   providers: [CharacterService],
 })
