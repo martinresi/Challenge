@@ -12,7 +12,7 @@ import * as process from 'process';
       envFilePath: '.env',
       isGlobal: true,
     }),
-    MongooseModule.forRoot("mongodb://localhost:27017/challenge"),
+    MongooseModule.forRoot(process.env.DATABASE_URI),
     CharacterModule,
   ],
   controllers: [AppController],

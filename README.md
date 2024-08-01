@@ -38,8 +38,9 @@ cd challenge
 npm install
 
 
-## Running the app
-npm run start
+## Running the app docker
+docker-compose -f docker-compose.yml up -d --build
+
 
 ## Web
 
@@ -50,7 +51,7 @@ url : http://localhost:3000/
 ### Conexion a Base de datos
 En el archivo .env indicar credenciales de conexion:
 ```typescript
-    DATABASE_URI = "mongodb://[servidor]:[puerto]/[schema]"
+    DATABASE_URI = "mongodb://host.docker.internal:[puerto]/[schema]"
 ```
 
 ### Endpoints API
